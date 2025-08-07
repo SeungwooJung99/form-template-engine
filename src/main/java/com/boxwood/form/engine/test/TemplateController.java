@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
@@ -311,11 +312,14 @@ public class TemplateController {
                 "무료 교육 프로그램 참여 기회"
         );
 
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         model.addAttribute("companyName", "테크솔루션");
         model.addAttribute("userName", "홍길동");
         model.addAttribute("welcomeBenefits", welcomeBenefits);
         model.addAttribute("userEmail", "hong@techsolution.co.kr");
-        model.addAttribute("registrationDate", LocalDateTime.now());
+        model.addAttribute("registrationDate", now.format(dateTimeFormatter));
         model.addAttribute("membershipLevel", "프리미엄");
         model.addAttribute("department", "개발팀");
         model.addAttribute("loginUrl", "https://app.techsolution.co.kr/login");
@@ -327,12 +331,15 @@ public class TemplateController {
     // 사용자 프로필 페이지
     @GetMapping("/user-profile")
     public String userProfile(Model model) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         Map<String, Object> user = new HashMap<>();
         user.put("name", "김개발자");
         user.put("position", "시니어 개발자");
         user.put("department", "개발팀");
         user.put("employeeId", "EMP-2023-001");
-        user.put("hireDate", LocalDate.of(2023, 3, 15));
+        user.put("hireDate", now.format(dateTimeFormatter));
         user.put("team", "백엔드팀");
         user.put("location", "서울 본사");
         user.put("manager", "이팀장");
@@ -342,7 +349,7 @@ public class TemplateController {
         user.put("slackId", "kimdev");
         user.put("linkedIn", "https://linkedin.com/in/kimdev");
         user.put("bio", "10년 경력의 백엔드 개발자입니다. Java/Spring 전문가이며, 마이크로서비스 아키텍처 설계 경험이 풍부합니다. 새로운 기술 학습에 열정적이며, 팀원들과의 협업을 중시합니다.");
-        user.put("lastUpdated", LocalDate.now());
+        user.put("lastUpdated", now.format(dateTimeFormatter));
 
         // 스킬 리스트
         List<String> skills = Arrays.asList(
@@ -398,12 +405,14 @@ public class TemplateController {
                 "무료 기술 상담 서비스",
                 "커뮤니티 베타 테스터 자격"
         );
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         model.addAttribute("companyName", "테크솔루션");
         model.addAttribute("userName", "박신입");
         model.addAttribute("welcomeBenefits", welcomeBenefits);
         model.addAttribute("userEmail", "park.new@techsolution.co.kr");
-        model.addAttribute("registrationDate", LocalDateTime.now());
+        model.addAttribute("registrationDate", now.format(dateTimeFormatter));
         model.addAttribute("membershipLevel", "스탠다드");
         model.addAttribute("department", "마케팅팀");
         model.addAttribute("loginUrl", "https://app.techsolution.co.kr/login");

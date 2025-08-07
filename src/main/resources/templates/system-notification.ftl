@@ -41,7 +41,7 @@
             <h3>📋 계정 정보</h3>
             <ul>
                 <li><strong>이메일:</strong> ${userEmail}</li>
-                <li><strong>가입일:</strong> ${registrationDate?string("yyyy-MM-dd HH:mm")}</li>
+                <li><strong>가입일:</strong> ${registrationDate}</li>
                 <li><strong>회원 등급:</strong> ${membershipLevel!"일반"}</li>
                 <#if department??>
                     <li><strong>부서:</strong> ${department}</li>

@@ -233,15 +233,15 @@
                     </li>
                     <li>
                         <span class="info-label">입사일:</span>
-                        <span class="info-value">${user.hireDate?string("yyyy-MM-dd")}</span>
+                        <span class="info-value">${user.hireDate}</span>
                     </li>
-                    <li>
-                        <span class="info-label">근무연차:</span>
-                        <span class="info-value">
-                                <#assign yearsWorked = (.now?string("yyyy")?number - user.hireDate?string("yyyy")?number)>
-                            ${yearsWorked}년차
-                            </span>
-                    </li>
+<#--                    <li>-->
+<#--                        <span class="info-label">근무연차:</span>-->
+<#--                        <span class="info-value">-->
+<#--                                <#assign yearsWorked = (.now?string("yyyy")?number - user.hireDate?string("yyyy")?number)>-->
+<#--                            ${yearsWorked}년차-->
+<#--                            </span>-->
+<#--                    </li>-->
                     <li>
                         <span class="info-label">소속팀:</span>
                         <span class="info-value">${user.team!"미지정"}</span>
@@ -354,7 +354,7 @@
     <!-- 푸터 -->
     <div class="footer">
         <p>프로필 카드 생성일: ${.now?string("yyyy-MM-dd HH:mm")}</p>
-        <p>최종 업데이트: ${user.lastUpdated?string("yyyy-MM-dd")}</p>
+        <p>최종 업데이트: ${user.lastUpdated}</p>
     </div>
 </div>
 </body>
