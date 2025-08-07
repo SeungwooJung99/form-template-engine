@@ -3,6 +3,7 @@ package com.boxwood.form.engine.test;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,7 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
-public class TemplateController {
+@RequestMapping("/freemarker")
+public class FreeMarkerTemplateController {
 
     // 메인 페이지
     @GetMapping("/")
