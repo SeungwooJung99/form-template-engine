@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>FreeMarker 템플릿 데모</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        .main-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin: 10px 0 0 0;
+        }
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .template-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .template-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .template-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .template-name::before {
+            content: '📄';
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        .template-file {
+            font-size: 14px;
+            color: #666;
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+        }
+        .template-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+        }
+        .template-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+        }
+        .info-section {
+            background: #e8f4fd;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #3498db;
+        }
+        .info-title {
+            color: #2c3e50;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .info-title::before {
+            content: '💡';
+            margin-right: 10px;
+        }
+        .info-content {
+            color: #555;
+            line-height: 1.6;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
+            border-top: 2px solid #eee;
+            color: #666;
+        }
+        .badge {
+            background: #28a745;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 class="main-title">🚀 FreeMarker 템플릿 데모</h1>
+        <p class="subtitle">Spring Boot + FreeMarker로 구현된 다양한 템플릿들을 확인해보세요</p>
+    </div>
+
+    <div class="info-section">
+        <h3 class="info-title">사용 방법</h3>
+        <div class="info-content">
+            아래의 각 템플릿 카드를 클릭하면 실제 렌더링된 결과를 볼 수 있습니다.
+            모든 데이터는 Controller에서 Model을 통해 전달되며, 각 템플릿은 실제 비즈니스 상황에서
+            사용할 수 있는 실용적인 예제들로 구성되어 있습니다.
+        </div>
+    </div>
+
+    <div class="templates-grid">
+        <#if templates?? && templates?has_content>
+            <#list templates as template>
+                <div class="template-card">
+                    <div class="template-name">
+                        ${template.name}
+                    </div>
+                    <div class="template-file">${template.template}</div>
+                    <div>
+                        <a href="${template.url}" class="template-link" target="_blank">
+                            템플릿 보기 →
+                        </a>
+                    </div>
+                </div>
+            </#list>
+        <#else>
+            <div class="template-card">
+                <div class="template-name">⚠️ 템플릿 로드 오류</div>
+                <div class="template-file">Controller에서 템플릿 목록을 가져올 수 없습니다</div>
+                <div>
+                    <a href="/invoice" class="template-link">송장 템플릿 직접 보기</a>
+                    <a href="/user-profile" class="template-link">프로필 템플릿 직접 보기</a>
+                </div>
+            </div>
+        </#if>
+    </div>
+
+    <div class="info-section">
+        <h3 class="info-title">포함된 템플릿 기능</h3>
+        <div class="info-content">
+            <ul>
+                <li><strong>송장/세금계산서:</strong> 완전한 비즈니스 송장 템플릿 (항목, 세금, 할인 계산 포함)</li>
+                <li><strong>월간 보고서:</strong> KPI, 성과, 프로젝트 현황을 포함한 종합 보고서</li>
+                <li><strong>시스템 알림:</strong> 사용자 환영 및 시스템 알림 페이지</li>
+                <li><strong>사용자 프로필:</strong> 직원 정보, 스킬, 프로젝트를 보여주는 프로필 카드</li>
+                <li><strong>환영 이메일:</strong> 신규 사용자를 위한 환영 이메일 템플릿</li>
+                <li><strong>완전한 예제:</strong> 실제 비즈니스 환경에서 사용할 수 있는 완성도 높은 템플릿</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>🔧 Spring Boot + FreeMarker Template Engine</p>
+        <p>생성 시간: ${.now?string("yyyy-MM-dd HH:mm:ss")}</p>
+    </div>
+</div>
+</body>
+</html>
